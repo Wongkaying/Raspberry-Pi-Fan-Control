@@ -1,4 +1,4 @@
-# Raspberry-Pi-gpiozero-Fan-control
+# Raspberry-Pi-Fan-Control
 
 This script controls the fan of the Raspberry Pi based on the **gpiozero API**.
 You can set the switch-on temperature and the switch-off temperature of the fan as well as the interval at which the temperature is to be queried.
