@@ -9,7 +9,7 @@ from gpiozero import OutputDevice
 GET_COOL = 45  # (degrees Celsius) Fan kicks on at this temperature.
 BE_COOL = 40  # (degress Celsius) Fan shuts off at this temperature.
 SLEEP_INTERVAL = 5  # (seconds) How often we check the core temperature.
-GPIO_PIN = 18  # Which GPIO pin you're using to control the fan.
+GPIO_PIN = 17  # Which GPIO pin you're using to control the fan.
 LOGS = "" # Path where the log file should be stored. Examlple: home/pi/logs/examplelog.log -- Leave empty to disgart ""
 
 # Get current time
