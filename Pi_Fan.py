@@ -17,7 +17,7 @@ def get_time():
     return str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
 # Function to write the logs based on the log level
-def Write_Log(logtext, level=0):
+def write_log(logtext, level=0):
     if LOGS == "":
         return
     else:
@@ -51,7 +51,7 @@ def get_temp():
 
 # Jst a simple printout at startup
 print("Wongkaying's Pi_Fan started")
-Write_Log("Wongkaying's Pi_Fan started", 0)
+write_log("Wongkaying's Pi_Fan started", 0)
 
 # Fan control
 if __name__ == '__main__':
@@ -65,12 +65,12 @@ if __name__ == '__main__':
         # isn't already running.
         # NOTE: `fan.value` returns 1 for "on" and 0 for "off"
         if temp > GET_COOL and not fan.value:
-            Write_Log("Fan kicks on", 1)
+            write_log("Fan kicks on", 1)
             fan.on()
 
         # Stop the fan if the fan is running and the temperature has dropped
         # to 10 degrees below the limit.
         elif fan.value and temp < BE_COOL:
-            Write_Log("Fan kicks off")
+            write_log("Fan kicks off")
             fan.off()
         time.sleep(SLEEP_INTERVAL)
