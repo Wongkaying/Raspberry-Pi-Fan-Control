@@ -71,6 +71,6 @@ if __name__ == '__main__':
         # Stop the fan if the fan is running and the temperature has dropped
         # to 10 degrees below the limit.
         elif fan.value and temp < BE_COOL:
-            write_log("Fan kicks off")
+            write_log("Fan kicks off", 1)
             fan.off()
         time.sleep(SLEEP_INTERVAL)
