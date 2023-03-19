@@ -4,7 +4,7 @@ import os
 import logging
 
 from datetime import datetime
-from gpiozero import OutputDevice
+from gpiozero import OutputDevice, CPUTemperature
 
 GET_COOL = 45  # (degrees Celsius) Fan kicks on at this temperature.
 BE_COOL = 40  # (degress Celsius) Fan shuts off at this temperature.
@@ -42,14 +42,15 @@ def write_log(logtext, level=0):
 
 # Get temperature
 def get_temp():
-    output = subprocess.run(['vcgencmd', 'measure_temp'], capture_output=True)
-    temp_str = output.stdout.decode()
+    cpu_temp = str(CPUTemperature(min_temp=30, max_temp=90).temperature)
+    output = round(float(cpu_temp), 2)
     try:
-        return float(temp_str.split('=')[1].split('\'')[0])
-    except (IndexError, ValueError):
-        raise RuntimeError('Could not parse temperature output.')
+        return output
+    except(IndexError, ValueError):
+        write_log('Could not parse any temperature output', 3)
+        raise RuntimeError('Could not parse any temperature output')
 
-# Jst a simple printout at startup
+# Just a simple printout at startup
 print("Wongkaying's Pi_Fan started")
 write_log("Wongkaying's Pi_Fan started", 0)
 
@@ -61,16 +62,17 @@ if __name__ == '__main__':
     fan = OutputDevice(GPIO_PIN)
     while True:
         temp = get_temp()
+        temp_str = str(temp)
         # Start the fan if the temperature has reached the limit and the fan
         # isn't already running.
         # NOTE: `fan.value` returns 1 for "on" and 0 for "off"
         if temp > GET_COOL and not fan.value:
-            write_log("Fan kicks on", 1)
+            write_log("Fan kicks on at " + temp_str, 1)
             fan.on()
 
         # Stop the fan if the fan is running and the temperature has dropped
         # to 10 degrees below the limit.
         elif fan.value and temp < BE_COOL:
-            write_log("Fan kicks off", 1)
+            write_log("Fan kicks off at " + temp_str, 1)
             fan.off()
         time.sleep(SLEEP_INTERVAL)
