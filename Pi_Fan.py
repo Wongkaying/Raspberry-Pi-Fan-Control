@@ -1,4 +1,3 @@
-import subprocess
 import time
 import os
 
@@ -14,10 +13,14 @@ TEMP_LOGS = "" # Path where the temperature log file should be stored. Examlple:
 
 # Get current time
 def get_time(formate):
-    if formate == "shot":
-        return str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-    else:
+    if formate == "short":
         return str(datetime.now().strftime('%Y-%m-%d'))
+    else:
+        return str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    
+def get_avg():
+    avg = 86400 / SLEEP_INTERVAL
+    return avg
 
 # Function to write the logs based on the log level
 def write_log(logtext, level=0):
@@ -69,29 +72,27 @@ def get_temp():
 print("Wongkaying's Pi_Fan started")
 write_log("Wongkaying's Pi_Fan started", 0)
 
-def temp_list():
-    temp_list = []
-    return temp_list
-
 # Fan control
 if __name__ == '__main__':
-    # Secure
+    temp_list = []
+    # Secure - Let's check if there is really something to cool down
     if BE_COOL >= GET_COOL:
         raise RuntimeError('BE_COOL must be less than GET_COOL')
     fan = OutputDevice(GPIO_PIN)
+
+    # Get temperatures after the desired time
     while True:
         temp = get_temp()
         temp_str = str(temp)
+        # If you wanne log the Avarage temperatures. It will continue here. Otherwise ignore this
         if TEMP_LOGS == "":
             continue
         else:
-            if len(temp_list) < 5:
+            if len(temp_list) < get_avg():
                 temp_list.append(temp)
-                print(len(temp_list))
-                write_log("Counter: " + str(len(temp_list)) + " with Value: " + temp_str, 4)
             else:
                 avg = sum(temp_list) / len(temp_list)
-                print(str(avg).split(".")[0])
+                write_log(str(avg).split(".")[0] + "°C", 4)
                 temp_list.clear()
         # Start the fan if the temperature has reached the limit and the fan
         # isn't already running.
