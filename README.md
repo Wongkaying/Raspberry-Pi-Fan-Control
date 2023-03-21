@@ -27,9 +27,9 @@ python3 Pi_Fan.py
 
 ## Setting up
 
-The script is executed with the default values of the Rapberry Pi after startup.
+The script is executed with the default values of the Raspberry Pi after startup.
 Writing the log files is disabled and can be enabled later.
-Furthermore the temperatures as well as the path of the log files and the GPIO's can be changed.
+Furthermore, the temperatures as well as the path of the log files and the GPIO's can be changed.
 ```log
 GET_COOL = 45  # (degrees Celsius) Fan kicks on at this temperature.
 BE_COOL = 40  # (degress Celsius) Fan shuts off at this temperature.
