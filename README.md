@@ -1,11 +1,11 @@
 # Raspberry-Pi-Fan-Control
 
-This script controls the fan of the Raspberry Pi based on the **gpiozero API**.
-You can set the switch-on temperature and the switch-off temperature of the fan as well as the interval at which the temperature is to be queried.
-Likewise, a function that writes the events to a log file can be used. -- **__Not mandatory__**
-If you wish, you can record the average temperatures for each day. --**__Not mandatory__**
-Only the average temperature is written to the log file.
-*Note: When restarting the Pi as well as the script, the 24h counter is set to 0.*
+This script controls the fan of the Raspberry Pi based on the **gpiozero API**.<br>
+You can set the switch-on temperature and the switch-off temperature of the fan as well as the interval at which the temperature is to be queried.<br>
+Likewise, a function that writes the events to a log file can be used. -- **__Not mandatory__**<br>
+If you wish, you can record the average temperatures for each day. --**__Not mandatory__**<br>
+Only the average temperature is written to the log file.<br>
+*Note: When restarting the Pi as well as the script, the 24h counter is set to 0.*<br>
 
 ## Installation instructions
 
